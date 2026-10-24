@@ -1,4 +1,76 @@
-# Quiet-map browser preview
+# Map viewers
+
+## Easy IMG viewer (recommended)
+
+The repository includes a pan/zoom viewer for the **actual Easy IMG**, with
+terrain polygons, road/trail patterns, contours, POI symbols, labels, night
+colours, per-type toggles/search, feature identification and a local GPX overlay.
+Use **Load IMG file** to open another map without rebuilding or exporting it.
+The file is sent only to the local server you started, decoded into temporary
+files, and removed when replaced or the server exits. GPX files stay entirely
+in the browser. No external basemap or CDN is used.
+
+Prerequisites: Python 3.10+, `uv`, Java 21 with `JAVA_HOME` pointing to the JRE,
+Git, and Go (to build typconv once). Bootstrap the pinned mkgmap JAR, then build
+the pinned MIT converter:
+
+```sh
+./scripts/bootstrap.sh
+git clone https://github.com/dyuri/typconv .tools/typconv-src
+git -C .tools/typconv-src checkout 5bd9e96a9ab7be2a5c5507a7bc60298be1bf46fc
+(cd .tools/typconv-src && go build -o ../typconv ./cmd/typconv)
+uv run preview/serve.py replica/optimized/build/gmapsupp.img
+```
+
+Open **http://127.0.0.1:8768/**. Omit the IMG argument to start with an empty
+viewer and use the file picker. An IMG need not be inside this repository.
+`uv` installs pinned Python dependencies in its cache; no npm build is needed.
+Use `--typconv /absolute/path/to/typconv` for an existing converter.
+
+```sh
+uv run preview/serve.py /path/to/gmapsupp.img --port 8768
+uv run preview/check-viewer.py replica/optimized/build/gmapsupp.img --typconv "$PWD/.tools/typconv"
+```
+
+The decoder uses mkgmap's IMG filesystem and MapReader APIs to read every
+embedded tile, plus the map's own TYP; it does not substitute the seven quiet
+map types. Visible types without a TYP entry are reported and drawn with a
+magenta fallback rather than silently disappearing. Contour classes use generic
+names because a TYP's original interval labels may be stale after filtering.
+
+The first viewport in a tile can take 10–20 seconds to decode. Subsequent pans
+reuse up to four decoded tile/detail combinations. A viewport over 60,000
+features asks you to zoom in; this limit is reported instead of silently
+truncating the map. The coverage button fits tile bounds, which can include
+empty space outside the extraction polygon.
+
+Supported: unlocked **classic TRE/LBL/RGN IMG containers with exactly one
+embedded TYP**, including this project's Easy and quiet builds. File-picker
+uploads are limited to 256 MiB and containers to 500 map tiles. Encrypted, Garmin NT/GMP, multiple-TYP and
+missing-TYP maps are rejected with an explanation; this is not a universal
+Garmin map reader. Inputs are read-only. SVG/canvas polygon ordering, segment
+patterns, label placement and zoom/detail thresholds approximate firmware.
+No routing/search/DEM rendering is implemented.
+
+For tailnet access, keep the server bound to localhost and proxy its **HTTP
+server**, including `/api/` (serving just the static files cannot decode IMG):
+
+```sh
+tailscale serve --bg --https=8445 http://127.0.0.1:8768
+tailscale serve status
+# Remove only this port when finished:
+tailscale serve --https=8445 off
+```
+
+Use an unused port and preserve existing handlers. Open the hostname shown by
+your own Tailscale installation. The map is uploaded to the machine running
+this server; access should stay within your own trusted tailnet. A GitHub
+Pages-only deployment cannot run the Java decoder. Stop the local server with
+Ctrl-C when done. One server holds one active map; loading another replaces
+it for all connected viewers.
+
+## Earlier quiet-map viewer
+
 
 Build `quiet/build/gmapsupp.img`, run `uv run preview/export.py`, and serve only
 the generated `preview/dist` directory. Geometry is decoded from the actual IMG;
@@ -48,12 +120,10 @@ build validation report and the TYP against the source manifest, and fails if
 any feature type visible in the three captured areas has no TYP definition.
 Generated SVGs and decoded styling stay in ignored `preview/easy-captures/`.
 
-Build the optimized map first. Install Go and build the pinned converter:
+Build the optimized map first and follow the one-time mkgmap/typconv setup
+above. Then generate the capture views:
 
 ```sh
-git clone https://github.com/dyuri/typconv .tools/typconv-src
-git -C .tools/typconv-src checkout 5bd9e96a9ab7be2a5c5507a7bc60298be1bf46fc
-(cd .tools/typconv-src && go build -o ../typconv ./cmd/typconv)
 # JAVA_HOME must point to a JRE with lib/server/libjvm.so for JPype.
 uv run preview/render-easy.py "$PWD/.tools/typconv"
 python3 -m http.server 8897 --bind 127.0.0.1 --directory preview/easy-captures

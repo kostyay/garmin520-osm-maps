@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e8edf1">
+  <title>Garmin IMG · Map viewer</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/vendor/leaflet.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="/vendor/leaflet.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <aside class="panel">
+    <header>
+      <span class="eyebrow">GARMIN EDGE 520 / MAP STUDY</span>
+      <h1>Andorra <span>MTB</span><svg viewBox="0 0 48 24" aria-hidden="true"><path d="M1 22 14 5 24 18 33 2 47 22M9 12l5 3 4-2M27 11l6 3 5-3"/></svg></h1>
+      <p class="intro">Your map · terrain, trails and course.</p>
+      <div class="metadata"><span id="map-size">Loading map…</span><span id="tile-count"></span></div>
+    </header>
+
+    <section>
+      <h2>Open a Garmin map</h2>
+      <label class="upload" for="img-file">Load IMG file <span>↗</span></label>
+      <input id="img-file" type="file" accept=".img" hidden>
+      <p id="load-status" class="hint" role="status">Choose an IMG to inspect its embedded map and style.</p>
+      <button id="fit-map" class="text-button">Show map coverage</button>
+    </section>
+    <section>
+      <h2>View the map</h2>
+      <label class="switch-row"><span>Night colours</span><input id="night" type="checkbox"></label>
+      <label class="switch-row"><span>Labels</span><input id="labels" type="checkbox" checked></label>
+      <div class="kind-toggles">
+        <label><input type="checkbox" data-kind="polygons" checked> Terrain</label>
+        <label><input type="checkbox" data-kind="lines" checked> Lines</label>
+        <label><input type="checkbox" data-kind="points" checked> POIs</label>
+      </div>
+    </section>
+    <section>
+      <div class="section-heading"><h2>Visible map types</h2><button class="text-button" id="toggle-all">Hide all</button></div>
+      <input id="type-search" type="search" placeholder="Find a type: forest, path…" aria-label="Filter map types">
+      <div id="layer-list"></div>
+      <p class="hint" id="type-status">Types in the current viewport. Click a feature to identify it.</p>
+    </section>
+    <section class="course-section" aria-labelledby="course-title">
+      <h2 id="course-title"><i class="course-dot"></i> Course contrast</h2>
+      <p class="hint">Load a course to compare it against the Easy map.</p>
+      <label class="upload" for="gpx-file">Open your GPX <span>↗</span></label>
+      <input id="gpx-file" type="file" accept=".gpx,application/gpx+xml" hidden>
+      <div id="course-status" class="hint" role="status">Your GPX stays in this browser.</div>
+      <button id="clear-course" class="text-button" hidden>Remove GPX</button>
+    </section>
+
+    <footer><p>Geometry and colours come from your IMG and its embedded TYP. Browser line patterns, polygon order, labels and zoom thresholds approximate Garmin firmware.</p><p>IMG files are decoded by this local server. GPX files stay in your browser. Unlocked classic IMG only; NT/GMP and multiple-style containers are unsupported.</p></footer>
+  </aside>
+
+  <main>
+    <nav class="locations" aria-label="Go to an area">
+      <button data-place="andorra">Andorra</button>
+      <button data-place="seu">La Seu</button>
+      <button data-place="arfa">Arfa</button>
+
+    </nav>
+    <div id="map" aria-label="Interactive map of the Andorran and Spanish Pyrenees"></div>
+    <div class="map-caption"><span id="detail-status" role="status">Open an IMG to begin</span><span id="cursor-position">42.357° N · 1.445° E</span></div>
+    <div id="error" role="alert" hidden></div>
+
+  </main>
+</body>
+</html>

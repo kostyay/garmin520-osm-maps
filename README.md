@@ -49,8 +49,18 @@ alignment, polygon draw order and label placement differ from Garmin firmware.
 The historical 49.99 MB device build and this portable rebuild share Easy
 styling but use slightly different background simplification settings.
 See [capture/regeneration instructions](docs/preview.md#easy-map-captures).
-The separate interactive seven-layer viewer below still renders only the old
-quiet map; it does **not** support the full Easy type inventory.
+The repository also includes an **interactive Easy IMG viewer** with a file
+picker, pan/zoom, terrain/line/POI toggles, type inspection and GPX overlays:
+
+```sh
+# One-time mkgmap/typconv setup: see docs/preview.md.
+uv run preview/serve.py replica/optimized/build/gmapsupp.img
+# Open http://127.0.0.1:8768/; use “Load IMG file” for another IMG.
+```
+
+Omit the IMG argument to start empty. The local Python/Java server decodes
+uploaded classic IMG files and their embedded TYP; maps are not uploaded to a
+cloud service. See [viewer setup, supported formats and tailnet access](docs/preview.md#easy-img-viewer-recommended).
 
 ## What the optimized map keeps
 
@@ -256,10 +266,10 @@ For newer raw OSM data, resolve current dated downloads from
 `quiet/sources.txt` and `quiet/sources.sha256`, and remove cached `quiet/data/`
 inputs. The old dated snapshots may eventually be removed by the provider.
 
-The browser viewer decodes the quiet IMG itself: seven layer toggles, location
+The earlier quiet-only viewer decodes that IMG itself: seven layer toggles, location
 shortcuts, day/night/inspection modes, a GPX overlay and a screen-outline helper.
 GPX files stay in the browser. Browser rendering and zoom thresholds approximate
-Garmin firmware. It does not render the newer Easy map. See
+Garmin firmware. For the newer Easy map, use `preview/serve.py` above. See
 [preview documentation](docs/preview.md) for local/tailnet hosting.
 
 ## Checks, identifiers and project files

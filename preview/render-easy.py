@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["jpype1==1.7.1", "pillow==12.0.0"]
+# dependencies = ["jpype1==1.7.1", "pillow==12.0.0", "shapely==2.1.2"]
 # ///
 """Make local SVG captures from compiled Easy tiles and decoded original TYP.
 
@@ -8,11 +8,9 @@ Usage: uv run preview/render-easy.py /path/to/typconv
 Outputs are private/generated in preview/easy-captures/. Browser SVG rendering
 approximates firmware: bitmap strokes, polygon ordering and label placement differ.
 """
-import base64
 from collections import Counter
 import hashlib
 from html import escape
-from io import BytesIO
 import json
 import math
 from pathlib import Path
@@ -20,7 +18,7 @@ import subprocess
 import sys
 
 import jpype
-from PIL import Image
+from garmin import bitmap
 
 if len(sys.argv) != 2:
     raise SystemExit('Usage: uv run preview/render-easy.py /path/to/typconv')
@@ -46,23 +44,6 @@ for kind in ('lines', 'polygons', 'points'):
             code >>= 8
         assert (kind, code) not in styles
         styles[kind, code] = item
-
-
-def bitmap(icon):
-    pixels = base64.b64decode(icon['pixels'])
-    assert len(pixels) == icon['width'] * icon['height']
-    palette = icon.get('palette', [])
-    rgba = []
-    for pixel in pixels:
-        assert not palette or pixel <= len(palette), 'Unexpected bitmap palette index'
-        # typconv uses the extra palette index for transparent pixels.
-        colour = palette[pixel] if pixel < len(palette) else 'none'
-        rgba.append(tuple(bytes.fromhex(colour[1:])) + (255,) if colour.startswith('#') else (0, 0, 0, 0))
-    img = Image.new('RGBA', (icon['width'], icon['height']))
-    img.putdata(rgba)
-    output = BytesIO()
-    img.save(output, format='PNG')
-    return 'data:image/png;base64,' + base64.b64encode(output.getvalue()).decode()
 
 
 def mercator(lat):
