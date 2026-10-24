@@ -34,6 +34,24 @@ TYP unchanged and navigation-line retention checks passing. This portable
 rebuild was not copied to the device; its 24 m background setting is documented
 below and in the session history.
 
+## Easy-style map preview
+
+![Local captures of the optimized Easy map at Arfa, La Seu and Andorra](docs/assets/easy-map-preview.gif)
+
+These captures decode the **49.88 MB optimized Easy build**, using its compiled
+geometry and the original Easy TYP colours, bitmap patterns and POI symbols.
+Green land cover, blue water, trails and contours are included. This replaces
+an earlier screenshot that incorrectly illustrated the quiet-map experiment.
+[Arfa still screenshot](docs/assets/easy-map-preview.png).
+
+This is a browser approximation, **not an Edge 520 emulator**. Bitmap stroke
+alignment, polygon draw order and label placement differ from Garmin firmware.
+The historical 49.99 MB device build and this portable rebuild share Easy
+styling but use slightly different background simplification settings.
+See [capture/regeneration instructions](docs/preview.md#easy-map-captures).
+The separate interactive seven-layer viewer below still renders only the old
+quiet map; it does **not** support the full Easy type inventory.
+
 ## What the optimized map keeps
 
 - Every non-contour line feature from the full replica, at every source detail
@@ -214,13 +232,6 @@ from `NewFiles`. Personal GPX/FIT files and backups are ignored by Git.
 
 ## Quiet-map experiment and browser viewer
 
-![Local browser preview near Arfa: quiet map with an illustrative course, highlighted layers, and the base map alone](docs/assets/quiet-map-preview.gif)
-
-Captured locally from the **earlier quiet-map experiment**, not the recommended
-optimized Easy map or an Edge 520 emulator. The animation cycles through course
-contrast, highlighted layer colours, and the base map alone. The magenta overlay
-is a public OSM trail example, not a planned ride or personal GPX.
-[Full-size still screenshot](docs/assets/quiet-map-preview.png).
 
 The original lean reconstruction is retained for comparison:
 
