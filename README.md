@@ -214,6 +214,14 @@ from `NewFiles`. Personal GPX/FIT files and backups are ignored by Git.
 
 ## Quiet-map experiment and browser viewer
 
+![Local browser preview near Arfa: quiet map with an illustrative course, highlighted layers, and the base map alone](docs/assets/quiet-map-preview.gif)
+
+Captured locally from the **earlier quiet-map experiment**, not the recommended
+optimized Easy map or an Edge 520 emulator. The animation cycles through course
+contrast, highlighted layer colours, and the base map alone. The magenta overlay
+is a public OSM trail example, not a planned ride or personal GPX.
+[Full-size still screenshot](docs/assets/quiet-map-preview.png).
+
 The original lean reconstruction is retained for comparison:
 
 ```sh
