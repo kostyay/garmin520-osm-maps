@@ -1,0 +1,83 @@
+; One-pixel lines; no borders, arrows, labels or POI symbols.
+[_id]
+FID=52371
+ProductCode=1
+CodePage=1252
+[end]
+
+[_drawOrder]
+Type=0x4b,1
+Type=0x3c,2
+[end]
+
+[_line]
+Type=0x16
+FontStyle=NoLabel
+UseOrientation=Y
+Xpm="32 1 2 1"
+"a c #929B91"
+". c none"
+"aaaaaa..aaaaaa..aaaaaa..aaaaaa.."
+[end]
+
+[_line]
+Type=0x0d
+FontStyle=NoLabel
+UseOrientation=Y
+Xpm="32 1 2 1"
+"a c #AAA59D"
+". c none"
+"aa..aa..aa..aa..aa..aa..aa..aa.."
+[end]
+
+[_line]
+Type=0x0a
+FontStyle=NoLabel
+UseOrientation=Y
+Xpm="32 1 2 1"
+"a c #A19A8E"
+". c none"
+"aaaaaaaaaaaaaa..aaaaaaaaaaaaaa.."
+[end]
+
+[_line]
+Type=0x06
+FontStyle=NoLabel
+LineWidth=1
+Xpm="0 0 2 0"
+"a c #AAA59D"
+"b c #62605C"
+[end]
+
+[_line]
+Type=0x03
+FontStyle=NoLabel
+LineWidth=1
+Xpm="0 0 2 0"
+"a c #B2B2B2"
+"b c #606060"
+[end]
+
+[_line]
+Type=0x1f
+FontStyle=NoLabel
+LineWidth=1
+Xpm="0 0 2 0"
+"a c #A5B4BE"
+"b c #596A75"
+[end]
+
+[_polygon]
+Type=0x4b
+Xpm="0 0 2 0"
+"a c #FFFFFF"
+"b c #181818"
+[end]
+
+[_polygon]
+Type=0x3c
+FontStyle=NoLabel
+Xpm="0 0 2 0"
+"a c #E7EDF0"
+"b c #242D32"
+[end]

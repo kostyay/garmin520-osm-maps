@@ -1,0 +1,3 @@
+name=* { delete name }
+ref=* { delete ref }
+(natural=water | waterway=riverbank | landuse=reservoir) [0x3c resolution 20]

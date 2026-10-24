@@ -1,0 +1,3 @@
+https://download.geofabrik.de/europe/andorra-261022.osm.pbf andorra.osm.pbf
+https://download.geofabrik.de/europe/spain/cataluna-261022.osm.pbf cataluna.osm.pbf
+https://download.geofabrik.de/europe/spain/aragon-261022.osm.pbf aragon.osm.pbf

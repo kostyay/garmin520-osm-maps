@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e8edf1">
+  <title>Andorra MTB · Map contents</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="vendor/leaflet.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <aside class="panel">
+    <header>
+      <span class="eyebrow">GARMIN EDGE 520 / MAP STUDY</span>
+      <h1>Andorra <span>MTB</span><svg viewBox="0 0 48 24" aria-hidden="true"><path d="M1 22 14 5 24 18 33 2 47 22M9 12l5 3 4-2M27 11l6 3 5-3"/></svg></h1>
+      <p class="intro">A quiet map. A clear course.</p>
+      <div class="metadata"><span id="map-size">Loading map…</span><span>OSM · 22 Oct 2026</span></div>
+    </header>
+
+    <section class="display-section" aria-labelledby="display-title">
+      <h2 id="display-title">View the map</h2>
+      <div class="segmented" role="group" aria-label="Map appearance">
+        <button id="quiet-mode" class="selected" aria-pressed="true">Quiet style</button>
+        <button id="explain-mode" aria-pressed="false">Identify layers</button>
+      </div>
+      <p class="hint" id="mode-description">The muted colours and line patterns stored in your map.</p>
+      <label class="switch-row"><span>Night colours</span><input id="night" type="checkbox"></label>
+    </section>
+
+    <section aria-labelledby="layers-title">
+      <div class="section-heading"><h2 id="layers-title">What’s visible</h2><button class="text-button" id="toggle-all">Hide all</button></div>
+      <div id="layer-list" aria-live="polite"></div>
+      <p class="hint">Counts are map segments at this detail level, not individual trails. Tap a line on the map to identify it.</p>
+    </section>
+
+    <section class="course-section" aria-labelledby="course-title">
+      <h2 id="course-title"><i class="course-dot"></i> Course contrast</h2>
+      <p class="hint">Compare a bold course against the quiet base map.</p>
+      <label class="switch-row"><span>Example trail near Arfa <small>Illustrative overlay, not a planned ride</small></span><input id="demo" type="checkbox"></label>
+      <label class="upload" for="gpx-file">Open your GPX <span>↗</span></label>
+      <input id="gpx-file" type="file" accept=".gpx,application/gpx+xml" hidden>
+      <div id="course-status" class="hint" role="status">Your GPX stays in this browser.</div>
+      <button id="clear-course" class="text-button" hidden>Remove GPX</button>
+    </section>
+
+    <section aria-labelledby="reference-title">
+      <h2 id="reference-title">Preview helpers</h2>
+      <label class="switch-row"><span>Place labels <small>Andorra, La Seu and Arfa</small></span><input id="places" type="checkbox"></label>
+      <label class="switch-row"><span>Extraction boundary <small>100 km · Andorra + Spanish side</small></span><input id="boundary" type="checkbox"></label>
+      <label class="switch-row"><span>Edge 520 screen outline <small>200 × 265 px, for scale reference</small></span><input id="device-frame" type="checkbox"></label>
+      <p class="hint">These helpers and GPX overlays are not embedded in the base map.</p>
+    </section>
+
+    <details>
+      <summary>What has been left out</summary>
+      <p>City cycleways, shops and repair stations, street names and road references, MTB difficulty labels, contours, buildings, forests and most city streets.</p>
+      <p>No routing, address search or elevation shading. No French extract.</p>
+    </details>
+    <footer>
+      <p>This viewer shows the earlier quiet map. The optimized Easy Trail build is separate. Browser drawing approximates Garmin rendering; actual device zoom and GPX contrast need an Edge 520 check.</p>
+      <a href="gmapsupp.img" download>Download quiet map <span>↓</span></a>
+    </footer>
+  </aside>
+
+  <main>
+    <nav class="locations" aria-label="Go to an area">
+      <button data-place="andorra">Andorra</button>
+      <button data-place="seu">La Seu</button>
+      <button data-place="arfa">Arfa</button>
+      <button id="full-area">100 km area</button>
+    </nav>
+    <div id="map" aria-label="Interactive map of the Andorran and Spanish Pyrenees"></div>
+    <div id="screen-frame" hidden><span>EDGE 520 · SCREEN REFERENCE</span><div>200 × 265</div></div>
+    <div class="map-caption"><span id="detail-status" role="status">Loading map data…</span><span id="cursor-position">42.357° N · 1.445° E</span></div>
+    <div id="error" role="alert" hidden></div>
+    <div class="preview-badge" id="explain-badge" hidden>Layer colours amplified for inspection</div>
+  </main>
+</body>
+</html>

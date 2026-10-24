@@ -1,0 +1,5 @@
+PASS: 8,843,264 bytes; Andorra, La Seu and Arfa within map bounds
+PASS: required line types present; no POIs, contours, routing, search indexes or DEM
+PASS: compiled labels contain only copyright notices
+PASS: 19 style cases; street names and references suppressed
+PENDING: Edge 520 zoom, GPX contrast and firmware acceptance

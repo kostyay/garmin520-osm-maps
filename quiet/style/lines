@@ -1,0 +1,14 @@
+# Derived from mkgmap's default line classifications; no default-style fallback.
+name=* { delete name }
+ref=* { delete ref }
+area=yes { delete highway }
+# Shared paved cycle paths can be tagged as paths/footways rather than cycleways.
+(highway=path | highway=footway) & bicycle=designated & (surface=asphalt | surface=paved | surface=concrete | surface=paving_stones) { delete highway }
+
+# MTB information changes the line pattern, never a difficulty label or class.
+(highway=path | highway=footway | highway=bridleway) & (quiet:mtb=yes | mtb:scale=*) [0x16 resolution 22]
+(highway=path | highway=footway | highway=bridleway) [0x0d resolution 22]
+highway=track [0x0a resolution 22]
+(highway=service | highway=unclassified | highway=residential) & (surface=unpaved | surface=gravel | surface=fine_gravel | surface=compacted | surface=dirt | surface=earth | surface=ground | surface=pebblestone | surface=rock | surface=sand | surface=mud | tracktype=grade2 | tracktype=grade3 | tracktype=grade4 | tracktype=grade5) [0x06 resolution 22]
+(highway=motorway | highway=motorway_link | highway=trunk | highway=trunk_link | highway=primary | highway=primary_link | highway=secondary | highway=secondary_link | highway=tertiary | highway=tertiary_link) [0x03 resolution 18]
+waterway=river [0x1f resolution 20]

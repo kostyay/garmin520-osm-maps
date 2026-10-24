@@ -1,0 +1,15 @@
+{
+  "bytes": 49987584,
+  "MB": 49.99,
+  "MiB": 47.67,
+  "under60MB": true,
+  "under50MB": true,
+  "maps": 23,
+  "sha256": "7a61ce7f116bb037e1622af71226c34a48d7ac7adaf5655cf47ff3c625638fcc",
+  "originalTYPBytes": 72911,
+  "originalTYPIdentical": true,
+  "routingAndSearchIndexes": false,
+  "DEM": false,
+  "andorraContours": true,
+  "spanishContours": true
+}
